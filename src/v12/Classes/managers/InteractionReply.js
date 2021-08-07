@@ -19,7 +19,7 @@ class InteractionReply {
   }
 
   send = async (content, options) => {
-    if (this.has) throw new Error('BUTTON_ALREADY_REPLIED: This button already has already been replied to.');
+    if (this.has) throw new Error('BUTTON_ALREADY_REPLIED: This button has already been replied to.');
 
     if (options === null && options !== undefined) options = { components: null };
 
@@ -60,7 +60,7 @@ class InteractionReply {
   };
 
   defer = async (ephemeral = false) => {
-    if (this.has) throw new Error('BUTTON_ALREADY_REPLIED: This button already has already been replied to.');
+    if (this.has) throw new Error('BUTTON_ALREADY_REPLIED: This button has already been replied to.');
 
     if (ephemeral) this.isEphemeral = true;
 
@@ -77,7 +77,7 @@ class InteractionReply {
   };
 
   think = async (ephemeral = false) => {
-    if (this.has) throw new Error('BUTTON_ALREADY_REPLIED: This button already has already been replied to.');
+    if (this.has) throw new Error('BUTTON_ALREADY_REPLIED: This button  has already been replied to.');
 
     if (ephemeral) this.isEphemeral = true;
 
