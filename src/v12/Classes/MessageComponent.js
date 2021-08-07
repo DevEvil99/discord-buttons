@@ -57,6 +57,14 @@ class MessageComponent {
       });
     };
   }
+
+  get component() {
+    return (
+      this.message.components
+        .flatMap(row => row.components)
+        .find(component => (component.id || component.custom_id) === this.id) || null
+    );
+  } 
 }
 
 module.exports = MessageComponent;
