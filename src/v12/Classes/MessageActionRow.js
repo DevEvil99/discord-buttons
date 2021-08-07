@@ -20,7 +20,7 @@ class MessageActionRow {
         Util.checkButton(data);
         this.components.push(new MessageButton(data, turnit));
       } else if (data.type === MessageComponentTypes.SELECT_MENU) {
-        if (this.components.length > 0) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+        if (this.components.length > 0) throw new Error('COMPONENTS_LIMIT_EXCEEDED: Each row is limited to 1 select menu having no other components.');
 
         Util.checkMenu(data);
         this.components.push(new MessageMenu(data, turnit));
@@ -34,14 +34,14 @@ class MessageActionRow {
 
       data.components.map((c) => {
         if (c.type === MessageComponentTypes.BUTTON) {
-          if (this._hasMenu) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+          if (this._hasMenu) throw new Error('BOTH_BUTTONS_AND_MENU: Rows can not have both buttons and select menu.');
 
-          if (this.components.length > 4) throw new Error('TOO_MUCH_COMPONENTS: You can provide 5 buttons per row');
+          if (this.components.length > 4) throw new Error('TOO_MANY_COMPONENTS: Maximum number of buttons per row is 5');
 
           Util.checkButton(c);
           return this.components.push(new MessageButton(c, turnit));
         } else if (c.type === MessageComponentTypes.SELECT_MENU) {
-          if (this.components.length > 0) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+          if (this.components.length > 0) throw new Error('COMPONENTS_LIMIT_EXCEEDED: Each row is limited to 1 select menu having no other components.');
 
           return this.components.push(new MessageMenu(c, turnit));
         }
@@ -54,14 +54,14 @@ class MessageActionRow {
   addComponents(...components) {
     components.flat(Infinity).map((c) => {
       if (c.type === MessageComponentTypes.BUTTON) {
-        if (this._hasMenu) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+        if (this._hasMenu) throw new Error('BOTH_BUTTONS_AND_MENU: Rows cannot have both buttons and select menu.');
 
-        if (this.components.length > 4) throw new Error('TOO_MUCH_COMPONENTS: You can provide 5 buttons per row');
+        if (this.components.length > 4) throw new Error('TOO_MANY_COMPONENTS: Maximum number of buttons per row is 5');
 
         Util.checkButton(c);
         return this.components.push(new MessageButton(c, this._turnit));
       } else if (c.type === MessageComponentTypes.SELECT_MENU) {
-        if (this.components.length > 0) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+        if (this.components.length > 0) throw new Error('COMPONENTS_LIMIT_EXCEEDED: Each row can have 1 select menu having no other components.');
 
         Util.checkMenu(c);
         return this.components.push(new MessageMenu(c, this._turnit));
@@ -72,14 +72,14 @@ class MessageActionRow {
 
   addComponent(data) {
     if (data.type === MessageComponentTypes.BUTTON) {
-      if (this._hasMenu) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+      if (this._hasMenu) throw new Error('BOTH_BUTTONS_AND_MENU: Rows can not have both buttons and select menu.');
 
-      if (this.components.length > 4) throw new Error('TOO_MUCH_COMPONENTS: You can provide 5 buttons per row');
+      if (this.components.length > 4) throw new Error('TOO_MANY_COMPONENTS: Maximum buttons per row is 5');
 
       Util.checkButton(data);
       this.components.push(new MessageButton(data, this._turnit));
     } else if (data.type === MessageComponentTypes.SELECT_MENU) {
-      if (this.components.length > 0) throw new Error('TOO_MUCH_COMPONENTS: You can use 1 select menu per row, without other components.');
+      if (this.components.length > 0) throw new Error('COMPONENTS_LIMIT_EXCEEDED: Each row can have 1 select menu having no other components.');
 
       Util.checkMenu(data);
       this.components.push(new MessageMenu(data, this._turnit));
